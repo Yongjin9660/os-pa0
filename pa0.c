@@ -59,10 +59,38 @@ static int parse_command(char *command, int *nr_tokens, char *tokens[])
 	 * Followings are example code. You should delete them and implement 
 	 * your own code here
 	 */
-	tokens[0] = "hello";
-	tokens[1] = "world";
-	*nr_tokens = 2;
-
+	int i=0;
+    int pid=0;
+    int ntoken=0;
+    char* garb;
+    char* temp;
+    while(1){
+        if(command[i] == ' ' || command[i] == '\n'){
+            if(pid != 0){
+                pid=0;
+                ntoken++;
+            }
+            if(command[i] == '\n'){
+                *nr_tokens = ntoken;
+                tokens[*nr_tokens] = NULL;
+                break;
+            }
+            else{
+                i++;
+                continue;
+            }
+        }
+        else{
+            if(pid == 0){
+                tokens[ntoken] = (char*)malloc(sizeof(char));
+                tokens[ntoken][pid++] = command[i++];
+            }
+            else{
+                garb = realloc(temp,sizeof(char)*(pid+1));
+                tokens[ntoken][pid++] = command[i++];
+            }
+        }
+    }
 	return 0;
 }
 
