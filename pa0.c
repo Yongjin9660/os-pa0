@@ -65,7 +65,7 @@ static int parse_command(char *command, int *nr_tokens, char *tokens[])
     char* garb;
     char* temp;
     while(1){
-        if(command[i] == ' ' || command[i] == '\n'){
+        if(command[i] == ' ' || command[i] == '\n' || command[i] == '\t'){
             if(pid != 0){
                 pid=0;
                 ntoken++;
